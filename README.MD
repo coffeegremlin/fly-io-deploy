@@ -8,7 +8,7 @@ Fly.io is a fantastic deployment method for web developement for when you need t
 
 1. Go to [The Fly.io signup page](https://fly.io/app/sign-up).
 
-<img src="">
+<img src="https://i.imgur.com/SrYoCzq.jpg">
 
 
 2. Creating an account/Signing Up:
@@ -16,12 +16,10 @@ Fly.io is a fantastic deployment method for web developement for when you need t
 	- Check the email you provided to log in and verify your email.
 	-  Once you've opened the email verification link you'll come to the "Dashboard" page (image below).
 
-<img src="">
+<img src="https://i.imgur.com/xO2m3fm.jpg">
 
 
 1. Finally we can start deploying out first Project! Click on "Deploy your app".
-
-<img src="">
 
 ## Now install flyctl
 
@@ -30,15 +28,19 @@ Fly.io is a fantastic deployment method for web developement for when you need t
 3. If you're on windows running a WSL or on Linux run: `curl -L https://fly.io/install.sh | sh`
 4. A successful install looks like this:
 
-<img src="">
+<img src="https://i.imgur.com/cteatzv.jpg">
 
-5. Now we have ti add the flyctl to our path. It will prompt you with two commands you need to run.
+5. Now we have ti add the flyctl to our path. It will prompt you with two commands you need to run one after the other.
 
-<img src="">
+<img src="https://i.imgur.com/w9Yevka.jpg">
 
 6. Now we have to sign in with the our account using: `flyctl auth login`
 7. You'll see these screen and follow the prompts. If you'd like to use [Privacy.com](https://privacy.com/) to make a virtual card with a $0 limit, that is a nice way to get these extra features.
-8. And you're set!
+
+<img src="https://i.imgur.com/He1Z27L.jpg">
+<img src="https://i.imgur.com/B5c4S1F.jpg">
+
+8. And now you're all set!
 
 ### We have an account! We can now deploy our sites!
 
