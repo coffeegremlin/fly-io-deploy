@@ -57,14 +57,15 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"`
 
 1. Open the link to the fly docs on [Python](https://fly.io/docs/getting-started/python/) apps.
 2. from your terminal run `flyctl launch`
-3. Add an app name, choose the closest server to you, and select `Y` when prompted to set up your database. You'll select the sincle shared cpu free tier. WRITE DOWN THE CREDENTIALS AS YOU ONLY SEE THEM HERE ONCE.
+3. In the generated dockerfile, change the `[deploy]` release_command to: `python3 manage.py migrate`
+4. Add an app name, choose the closest server to you, and select `Y` when prompted to set up your database. You'll select the sincle shared cpu free tier. WRITE DOWN THE CREDENTIALS AS YOU ONLY SEE THEM HERE ONCE.
    <img src="https://i.imgur.com/57OglZg.jpg">
-4. Fly will generate a `fly.toml` file for us and inside there we now have a default configuration. Before we finish we need to tell fly where to look for our environment variables with: `flyctl secrets import < ./yourappname/.env`
-5. To deploy to fly when you're ready, run `flyctl deploy` which will look for our `fly.toml` file, start deploying and will return you to your regular command line when it's done. (This might take awhile.)
+5. Fly will generate a `fly.toml` file for us and inside there we now have a default configuration. Before we finish we need to tell fly where to look for our environment variables with: `flyctl secrets import < ./yourappname/.env`
+6. To deploy to fly when you're ready, run `flyctl deploy` which will look for our `fly.toml` file, start deploying and will return you to your regular command line when it's done. (This might take awhile.)
    <img src="https://i.imgur.com/C9XG15j.jpg">
-6. If the deploy command fails try one more time using `flyctl deploy --local-only` which will use your local docker daemon for the deploy.
-7. To view our app and make sure everything worked correctly, we need to run `flyctl status` which gives us all the juicy details. And for errors we can run `flyctl logs`
-8.  To open our app from the command line run `flyctl open`
+7. If the deploy command fails try one more time using `flyctl deploy --local-only` which will use your local docker daemon for the deploy.
+8. To view our app and make sure everything worked correctly, we need to run `flyctl status` which gives us all the juicy details. And for errors we can run `flyctl logs`
+9.  To open our app from the command line run `flyctl open`
 
 
 ### Fly.io is totally free! But if you really like it, you can upgrade for some bells and whistles. We will NOT need to do so during this cohort.
