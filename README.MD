@@ -45,11 +45,13 @@ Fly.io is a fantastic deployment method for web developement for when you need t
 ### We have an account! We can now deploy our sites!
 
 ###  Minor tweaks for preparation:
-1. In your settings.py add this to your INSTALLED_APPS: `'whitenoise.runserver_nostatic',`
-2. Then at the bottom of settings.py add in: `STATIC_ROOT = BASE_DIR / "staticfiles"
+1. We need to add [whitenoise](http://whitenoise.evans.io/en/stable/django.html) to deal with our static files. So run `pip install whitenoise`
+2.  So in your settings.py add this to your INSTALLED_APPS: `'whitenoise.runserver_nostatic',`
+3. Then at the bottom of settings.py add in: `STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"`
-3. After opening your Django project, if you don't have your requirements set run: `pip3 freeze > requirements.txt` and then run the command `python3 -m pip install -r requirements.txt`
-4. We now need to make a procfile by running `touch Procfile`, and adding `web: gunicorn YourAppNameHere:app`. Replace your app name in the line.
+3. Now run `python3 manage.py collectstatic` to make sure everything is working.
+4. After opening your Django project, if you don't have your requirements set run: `pip3 freeze > requirements.txt` and then run the command `python3 -m pip install -r requirements.txt`
+5. We now need to make a procfile by running `touch Procfile`, and adding `web: gunicorn YourAppNameHere:app`. Replace your app name in the line.
 
 #### Deploying a Python App
 
