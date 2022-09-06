@@ -60,7 +60,7 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"`
 4. Fly will generate a `fly.toml` file for us and inside there we now have a default configuration. Before we finish we need to tell fly where to look for our environment variables with: `flyctl secrets import < ./yourappname/.env`
 5. To deploy to fly when you're ready, run `flyctl deploy` which will look for our `fly.toml` file, start deploying and will return you to your regular command line when it's done. (This might take awhile.)
    <img src="https://i.imgur.com/C9XG15j.jpg">
-6. If the deploy command fails try one more time using `flyctl launch --dockerfile Dockerfile` which will use your local docker daemon for the deploy.
+6. If the deploy command fails try one more time using `flyctl deploy --local-only` which will use your local docker daemon for the deploy.
 7. To view our app and make sure everything worked correctly, we need to run `flyctl status` which gives us all the juicy details. And for errors we can run `flyctl logs`
 8.  To open our app from the command line run `flyctl open`
 
