@@ -47,7 +47,17 @@ Fly.io is a fantastic deployment method for web developement for when you need t
 #### Deploying a Python App
 
 1. Open the link to the fly docs on [Python](https://fly.io/docs/getting-started/python/) apps.
-2. After
+2. After opening your Django project, if you don't have your requirements set run: `pip3 freeze > requirements.txt` and then run the command `python3 -m pip install -r requirements.txt`
+3. We now need to make a procfile by running `touch Procfile`, and adding `web: gunicorn YourAppNameHere:app`. Replace your app name in the line.
+4. from your terminal run `flyctl launch`
+5. Add an app name, choose the closest server to you, and select `Y` when prompted to set up your database. You'll select the sincle shared cpu free tier. WRITE DOWN THE CREDENTIALS AS YOU ONLY SEE THEM HERE ONCE.
+   <img src="https://i.imgur.com/57OglZg.jpg">
+6. Fly will generate a `fly.toml` file for us and inside there we now have a default configuration. Before we finish we need to tell fly where to look for our environment variables with: `flyctl secrets import < ./yourappname/.env`
+7. To deploy to fly when you're ready, run `flyctl deploy` which will look for our `fly.toml` file, start deploying and will return you to your regular command line when it's done. (This might take awhile.)
+   <img src="https://i.imgur.com/C9XG15j.jpg">
+8. If the deploy command fails try one more time using `flyctl launch --dockerfile Dockerfile` which will use your local docker daemon for the deploy.
+9. To view our app and make sure everything worked correctly, we need to run `flyctl status` which gives us all the juicy details. And for errors we can run `flyctl logs`
+10. To open our app from the command line run `flyctl open`
 
 
 ### Fly.io is totally free! But if you really like it, you can upgrade for some bells and whistles. We will NOT need to do so during this cohort.
