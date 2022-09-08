@@ -88,7 +88,7 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"`
    <img src="https://i.imgur.com/IzRC3Vg.jpg">
 
 ````
-app = "coding-cooler"
+app = "YOURAPPNAME"
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []
@@ -163,7 +163,7 @@ RUN python manage.py collectstatic --noinput
 EXPOSE 8080
 
 # replace APP_NAME with module name
-CMD ["gunicorn", "--bind", ":8080", "--workers", "2", "codingcooler.wsgi"]
+CMD ["gunicorn", "--bind", ":8080", "--workers", "2", "YOURAPPNAME.wsgi"]
 ````
 
 1. If you recieve the error `failed ruinning usr/bin/python manage.py makemigrations: exit status 1`, try either changing in fly.toml: 
