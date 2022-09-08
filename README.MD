@@ -63,7 +63,7 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"`
 #### Deploying a Python App
 
 1. Open the link to the fly docs on [Python](https://fly.io/docs/getting-started/python/) apps.
-2. from your terminal run `flyctl launch`
+2. from your terminal run `flyctl launch` . And if this gives you an error you can run with the latest flyio docker image using : `flyctl launch --image flyio/hellofly:latest` or change the command to match the dockerimage in your app.
 3. Add an app name, choose the closest server to you, and select `Y` when prompted to set up your database. You'll select the single shared cpu free tier. WRITE DOWN THE CREDENTIALS AS YOU ONLY SEE THEM HERE ONCE.
    <img src="https://i.imgur.com/57OglZg.jpg">
 4. We also need to add the fly.io recomended db requirement using `pip install dj-database-url`
