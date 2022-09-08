@@ -90,11 +90,15 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"`
 ## Dockerfile
    <img src="https://i.imgur.com/EwxZ8oK.jpg">
 
-9. To deploy to fly when you're ready, run `flyctl deploy` which will look for our `fly.toml` file, start deploying and will return you to your regular command line when it's done. (This might take awhile.)
+9. If you recieve the error `failed ruinning usr/bin/python manage.py makemigrations: exit status 1`, try either changing in fly.toml: 
+ 
+`release_command = "python manage.py migrate` to `python3 manage.py migrate`
+
+10.  To deploy to fly when you're ready, run `flyctl deploy` which will look for our `fly.toml` file, start deploying and will return you to your regular command line when it's done. (This might take awhile.)
    <img src="https://i.imgur.com/C9XG15j.jpg">
-10.  If the deploy command fails try one more time using `flyctl deploy --local-only` which will use your local docker daemon for the deploy.
-11. To view our app and make sure everything worked correctly, we need to run `flyctl status` which gives us all the juicy details. And for errors we can run `flyctl logs`
-12. To open our app from the command line run `flyctl open`
+11.  If the deploy command fails try one more time using `flyctl deploy --local-only` which will use your local docker daemon for the deploy.
+12. To view our app and make sure everything worked correctly, we need to run `flyctl status` which gives us all the juicy details. And for errors we can run `flyctl logs`
+13. To open our app from the command line run `flyctl open`
 
 
 ### Fly.io is totally free! But if you really like it, you can upgrade for some bells and whistles. We will NOT need to do so during this cohort.
