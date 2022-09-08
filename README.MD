@@ -30,7 +30,7 @@ Fly.io is a fantastic deployment method for web developement for when you need t
 
 <img src="https://i.imgur.com/cteatzv.jpg">
 
-5. Now we have ti add the flyctl to our path. It will prompt you with two commands you need to run one after the other.
+5. Now we have to add the flyctl to our path. It will prompt you with two commands you need to run one after the other. If you're on mac, add it to your bash profile, and if you're on windows it will be your `.zprofile` by running: `code ~/.zprofile`
 
 <img src="https://i.imgur.com/w9Yevka.jpg">
 
@@ -49,23 +49,49 @@ Fly.io is a fantastic deployment method for web developement for when you need t
 2.  So in your settings.py add this to your INSTALLED_APPS: `'whitenoise.runserver_nostatic',`
 3. Then at the bottom of settings.py add in: `STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"`
+
+<img src="https://i.imgur.com/esvOKS8.jpg">
+<img src="https://i.imgur.com/lqMnLNQ.jpg">
+
 3. Now run `python3 manage.py collectstatic` to make sure everything is working.
 4. After opening your Django project, if you don't have your requirements set run: `pip3 freeze > requirements.txt` and then run the command `python3 -m pip install -r requirements.txt`
-5. We now need to make a procfile by running `touch Procfile`, and adding `web: gunicorn YourAppNameHere:app`. Replace your app name in the line.
+5. We now need to make a procfile by running `touch Procfile`, and adding `web: gunicorn YourAppNameHere.wsgi` or if that give you errors during deployment `web: gunicorn YourAppNameHere:app`. Replace your app name in the line.
 
 #### Deploying a Python App
 
 1. Open the link to the fly docs on [Python](https://fly.io/docs/getting-started/python/) apps.
 2. from your terminal run `flyctl launch`
-3. In the generated dockerfile, change the `[deploy]` release_command to: `python3 manage.py migrate`
-4. Add an app name, choose the closest server to you, and select `Y` when prompted to set up your database. You'll select the sincle shared cpu free tier. WRITE DOWN THE CREDENTIALS AS YOU ONLY SEE THEM HERE ONCE.
+3. Add an app name, choose the closest server to you, and select `Y` when prompted to set up your database. You'll select the single shared cpu free tier. WRITE DOWN THE CREDENTIALS AS YOU ONLY SEE THEM HERE ONCE.
    <img src="https://i.imgur.com/57OglZg.jpg">
-5. Fly will generate a `fly.toml` file for us and inside there we now have a default configuration. Before we finish we need to tell fly where to look for our environment variables with: `flyctl secrets import < ./yourappname/.env`
-6. To deploy to fly when you're ready, run `flyctl deploy` which will look for our `fly.toml` file, start deploying and will return you to your regular command line when it's done. (This might take awhile.)
+4. We also need to add the fly.io recomended db requirement using `pip install dj-database-url`
+5. Fly will generate a `fly.toml` file for us and inside there we now have a default configuration. Before we finish we need to tell fly where to look for our environment variables with: 
+   
+   `flyctl secrets set KEY_NAME=somekindofvalue ANOTHER_KEY_NAME=someothervalue`
+   
+6. We now need to add in our database that fly made for us using those credentials. So run: `flyctl secrets set DATABASE_URL="postgres://postgres:SECRETPASSWORD@yourappname.internal:5432/yourappname"`
+7.  We need to make sure our settings.py has 
+   
+   `ALLOWED_HOSTS = ['yourappname.fly.dev', '127.0.0.1']`
+
+8.  Finally last step we need to do is check out fly.toml file and Dockerfile. In the Dockerfile you may need to change the last CMD line from: 
+   
+   `CMD ["gunicorn", "--bind", ":8080", "--workers", "2", "demo.wsgi"]`
+   
+   to:
+   
+   `CMD ["gunicorn", "--bind", ":8080", "--workers", "2", "yourappname.wsgi"]`
+
+## fly.toml
+   <img src="https://i.imgur.com/IzRC3Vg.jpg">
+
+## Dockerfile
+   <img src="https://i.imgur.com/EwxZ8oK.jpg">
+
+9. To deploy to fly when you're ready, run `flyctl deploy` which will look for our `fly.toml` file, start deploying and will return you to your regular command line when it's done. (This might take awhile.)
    <img src="https://i.imgur.com/C9XG15j.jpg">
-7. If the deploy command fails try one more time using `flyctl deploy --local-only` which will use your local docker daemon for the deploy.
-8. To view our app and make sure everything worked correctly, we need to run `flyctl status` which gives us all the juicy details. And for errors we can run `flyctl logs`
-9.  To open our app from the command line run `flyctl open`
+10.  If the deploy command fails try one more time using `flyctl deploy --local-only` which will use your local docker daemon for the deploy.
+11. To view our app and make sure everything worked correctly, we need to run `flyctl status` which gives us all the juicy details. And for errors we can run `flyctl logs`
+12. To open our app from the command line run `flyctl open`
 
 
 ### Fly.io is totally free! But if you really like it, you can upgrade for some bells and whistles. We will NOT need to do so during this cohort.
