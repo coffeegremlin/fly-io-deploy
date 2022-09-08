@@ -87,10 +87,86 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"`
 ## fly.toml
    <img src="https://i.imgur.com/IzRC3Vg.jpg">
 
+````
+app = "coding-cooler"
+kill_signal = "SIGINT"
+kill_timeout = 5
+processes = []
+
+[deploy]
+  release_command = "python manage.py migrate"
+
+[env]
+  PORT = "8080"
+
+[experimental]
+  allowed_public_ports = []
+  auto_rollback = true
+
+[[services]]
+  http_checks = []
+  internal_port = 8080
+  processes = ["app"]
+  protocol = "tcp"
+  script_checks = []
+  [services.concurrency]
+    hard_limit = 25
+    soft_limit = 20
+    type = "connections"
+
+  [[services.ports]]
+    force_https = true
+    handlers = ["http"]
+    port = 80
+
+  [[services.ports]]
+    handlers = ["tls", "http"]
+    port = 443
+
+  [[services.tcp_checks]]
+    grace_period = "1s"
+    interval = "15s"
+    restart_limit = 0
+    timeout = "2s"
+
+[[statics]]
+  guest_path = "/app/public"
+  url_prefix = "/static/"
+````
+
 ## Dockerfile
    <img src="https://i.imgur.com/EwxZ8oK.jpg">
 
-9. If you recieve the error `failed ruinning usr/bin/python manage.py makemigrations: exit status 1`, try either changing in fly.toml: 
+````
+ARG PYTHON_VERSION=3.7
+
+FROM python:${PYTHON_VERSION}
+
+RUN apt-get update && apt-get install -y \
+    python3-pip \
+    python3-venv \
+    python3-dev \
+    python3-setuptools \
+    python3-wheel
+
+RUN mkdir -p /app
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+COPY . .
+
+RUN python manage.py collectstatic --noinput
+
+
+EXPOSE 8080
+
+# replace APP_NAME with module name
+CMD ["gunicorn", "--bind", ":8080", "--workers", "2", "codingcooler.wsgi"]
+````
+
+1. If you recieve the error `failed ruinning usr/bin/python manage.py makemigrations: exit status 1`, try either changing in fly.toml: 
  
 `release_command = "python manage.py migrate` to `python3 manage.py migrate`
 
