@@ -2,7 +2,7 @@
 
 ## Introduction: What is Fly.io?
 
-Fly.io is a fantastic deployment method for web developement for when you need to deploy a project quickly. But also need a back end. We're switching to fly.io due to Heroku ending their free tier in November of 2022.
+Fly.io is a fantastic deployment method for web developement for when you need to deploy a project quickly. But also need a back end. We're switching to fly.io due to Heroku ending their free tier in November of 2022. This guide also assumes you have [Docker Destop](https://www.docker.com/products/docker-desktop/) installed.
 
 ## Setup: Creating an account
 
