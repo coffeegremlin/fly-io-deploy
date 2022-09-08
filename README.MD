@@ -1,4 +1,4 @@
-# [Fly.io](https://fly.io/) Deployment Guide
+# [Fly.io](https://fly.io/) Django Deployment Guide
 
 ## Introduction: What is Fly.io?
 
