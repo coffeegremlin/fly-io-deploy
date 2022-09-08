@@ -67,8 +67,8 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"`
 3. Add an app name, choose the closest server to you, and select `Y` when prompted to set up your database. You'll select the single shared cpu free tier. WRITE DOWN THE CREDENTIALS AS YOU ONLY SEE THEM HERE ONCE.
    <img src="https://i.imgur.com/57OglZg.jpg">
 4. We also need to add the fly.io recomended db requirement using `pip install dj-database-url`
-5. Fly will generate a `fly.toml` file for us and inside there we now have a default configuration. Before we finish we need to tell fly where to look for our environment variables with: 
-   
+5. Fly will generate a `fly.toml` file for us and inside there we now have a default configuration. Before we finish we need to tell fly where to look for our environment variables with the secrets set command: 
+### vvv REPLACE THESE FAKE VALUES vvv
    `flyctl secrets set KEY_NAME=somekindofvalue ANOTHER_KEY_NAME=someothervalue`
    
 6. We now need to add in our database that fly made for us using those credentials. So run: `flyctl secrets set DATABASE_URL="postgres://postgres:SECRETPASSWORD@yourappname.internal:5432/yourappname"`
