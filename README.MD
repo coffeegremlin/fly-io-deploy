@@ -30,9 +30,12 @@ Fly.io is a fantastic deployment method for web developement for when you need t
 
 <img src="https://i.imgur.com/cteatzv.jpg">
 
-5. Now we have to add the flyctl to our path. It will prompt you with two commands you need to run one after the other. If you're on mac, add it to your bash profile, and if you're on windows it will be your `.zprofile` by running: `code ~/.zprofile`
+5. We might have to add the flyctl to our path. It will prompt you with two commands you need to run one after the other. If you're on mac, add it to your bash profile, and if you're on windows it will be your `.zprofile` by running: `code ~/.zprofile`
 
 <img src="https://i.imgur.com/w9Yevka.jpg">
+
+### If your terminal looks like this, you're fine.
+<img src="https://i.imgur.com/bRmpb3y.png">
 
 6. Now we have to sign in with the our account using: `flyctl auth login`
 7. You'll see these screen and follow the prompts. If you'd like to use [Privacy.com](https://privacy.com/) to make a virtual card with a $0 limit, that is a nice way to get these extra features.
